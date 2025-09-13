@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c1wxvowrr0gub"]
 
-[node name="ProjectScreen" type="Control"]
+[node name="ProjectSelectionScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
