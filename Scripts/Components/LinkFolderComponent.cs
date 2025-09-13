@@ -9,7 +9,7 @@ public partial class LinkFolderComponent : Node
     
 
 
-public override void _Ready()
+    public override void _Ready()
     {
         _fileDialog.FilesSelected += OnNewFilesSelected;
         _linkNewFolderButton.Pressed += OnLinkNewFolderButtonPressed;
