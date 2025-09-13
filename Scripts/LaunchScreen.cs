@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class LaunchScreen : Control
 {
@@ -8,6 +9,7 @@ public partial class LaunchScreen : Control
     [Export] private TextureRect _textureRectB;
     [Export] private RichTextLabel _photographerName;
     [Export] private RichTextLabel _photographyTitle;
+    [Export] private PackedScene _projectScreen;
 
     private Random _rand = new Random();
     private Godot.Collections.Array<LaunchPicData> _backgroundImagesPool = new();
@@ -16,11 +18,13 @@ public partial class LaunchScreen : Control
 
     public override void _Ready()
     {
-        _CreateLaunchWindow();
-        _SetNewBackgroundImage();
+        CreateLaunchWindow();
+
+        _ = SetNewBackgroundImageSafe();
+        _ = ShowProjectScreenSafe();
     }
 
-    private void _CreateLaunchWindow()
+    private void CreateLaunchWindow()
     {
         _textureRectA.StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered;
         _textureRectA.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
@@ -33,26 +37,44 @@ public partial class LaunchScreen : Control
         _backgroundImagesPool = new Godot.Collections.Array<LaunchPicData>(_photos);
     }
 
-    private async void _SetNewBackgroundImage()
+    private async Task SetNewBackgroundImageSafe()
+    {
+        try
+        {
+            await SetNewBackgroundImage();
+        }
+        catch (Exception ex)
+        {
+            GD.PrintErr("Error in SetNewBackgroundImage: ", ex);
+        }
+    }
+
+    private async Task ShowProjectScreenSafe()
+    {
+        try
+        {
+            await ShowProjectScreen();
+        }
+        catch (Exception ex)
+        {
+            GD.PrintErr("Error in ShowProjectScreen: ", ex);
+        }
+    }
+
+    private async Task SetNewBackgroundImage()
     {
         if (_backgroundImagesPool.Count < 1)
         {
             _backgroundImagesPool = new Godot.Collections.Array<LaunchPicData>(_photos);
         }
 
-        if (_backgroundImagesPool.Count == 0)
-        {
-            return;
-        }
+        if (_backgroundImagesPool.Count == 0) return;
 
         int index = _rand.Next(_backgroundImagesPool.Count);
         LaunchPicData chosen = _backgroundImagesPool[index];
         _backgroundImagesPool.RemoveAt(index);
 
-        if (chosen.Image == null)
-        {
-            return;
-        }
+        if (chosen.Image == null) return;
 
         if (_firstImage)
         {
@@ -62,7 +84,8 @@ public partial class LaunchScreen : Control
             _firstImage = false;
 
             await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
-            _SetNewBackgroundImage();
+
+            await SetNewBackgroundImage();
             return;
         }
 
@@ -89,12 +112,22 @@ public partial class LaunchScreen : Control
         var tween = CreateTween();
         tween.Parallel().TweenProperty(fadeOutRect, "modulate:a", 0.0f, 0.5f);
         tween.Parallel().TweenProperty(fadeInRect, "modulate:a", 1.0f, 0.5f);
+
         await ToSignal(tween, Tween.SignalName.Finished);
 
         _useA = !_useA;
 
         await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
 
-        _SetNewBackgroundImage();
+        await SetNewBackgroundImage();
+    }
+
+    private async Task ShowProjectScreen()
+    {
+        await ToSignal(GetTree().CreateTimer(10.0), SceneTreeTimer.SignalName.Timeout);
+
+        if (_projectScreen == null) return;
+
+        GetTree().ChangeSceneToPacked(_projectScreen);
     }
 }
