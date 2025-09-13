@@ -13,7 +13,8 @@ public partial class PhotoThumbnail : Control
 
     public override void _Ready()
     {
-        CustomMinimumSize = new Vector2(128, 128);  // fixed square
+        CustomMinimumSize = new Vector2(128, 128);
+        
         SizeFlagsHorizontal = Control.SizeFlags.ShrinkCenter;
         SizeFlagsVertical   = Control.SizeFlags.ShrinkCenter;
 
@@ -48,5 +49,34 @@ public partial class PhotoThumbnail : Control
     { 
         _textureRect.Texture = submittedTexture;
         _path = path;
+        
+        if (submittedTexture != null)
+        {
+            int w = submittedTexture.GetWidth();
+            int h = submittedTexture.GetHeight();
+
+            const int maxSize = 128;
+            Vector2 newSize;
+            if (w >= h)
+            {
+                // Landscape → width = 128, height scaled
+                float ratio = (float)h / w;
+                newSize = new Vector2(maxSize, maxSize * ratio);
+            }
+            else
+            {
+                // Portrait → height = 128, width scaled
+                float ratio = (float)w / h;
+                newSize = new Vector2(maxSize * ratio, maxSize);
+            }
+
+            
+            CustomMinimumSize = newSize;
+
+            if (_textureRect != null)
+            {
+                _textureRect.StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered;
+            }
+        }
     }
 }
