@@ -76,5 +76,5 @@ title = "Open File(s)"
 ok_button_text = "Open"
 file_mode = 1
 access = 2
-filters = PackedStringArray("* .jpg")
+filters = PackedStringArray("*.jpg")
 use_native_dialog = true
