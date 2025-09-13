@@ -24,7 +24,6 @@ public partial class LaunchScreen : Control
     public override void _Ready()
     {
         CreateLaunchWindow();
-
         _ = SetNewBackgroundImageSafe();
         _ = ShowProjectScreenSafe();
     }
@@ -32,21 +31,15 @@ public partial class LaunchScreen : Control
     private void CreateLaunchWindow()
     {
         DisplayServer.WindowSetSize(new Vector2I(1280, 720));
-
         DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
-        
         DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.ResizeDisabled, true);
-        
         DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true);
-        
         _textureRectA.StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered;
         _textureRectA.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
         _textureRectA.Modulate = new Color(1, 1, 1, 1);
-
         _textureRectB.StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered;
         _textureRectB.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
         _textureRectB.Modulate = new Color(1, 1, 1, 0);
-
         _backgroundImagesPool = new Godot.Collections.Array<LaunchPicData>(_photos);
     }
 
@@ -90,15 +83,15 @@ public partial class LaunchScreen : Control
         if (chosen.Image == null) return;
 
         if (_firstImage)
-        {
+        { 
             _textureRectA.Texture = chosen.Image;
             _photographerName.Text = chosen.Photographer;
             _photographyTitle.Text = chosen.Title;
             _firstImage = false;
-
+            
             await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
-
             await SetNewBackgroundImage();
+           
             return;
         }
 
@@ -118,29 +111,26 @@ public partial class LaunchScreen : Control
 
         fadeInRect.Texture = chosen.Image;
         fadeInRect.Modulate = new Color(1, 1, 1, 0);
-
+        
         _photographerName.Text = chosen.Photographer;
         _photographyTitle.Text = chosen.Title;
-
-        var tween = CreateTween();
+        
+        Tween tween = CreateTween();
         tween.Parallel().TweenProperty(fadeOutRect, "modulate:a", 0.0f, 0.5f);
         tween.Parallel().TweenProperty(fadeInRect, "modulate:a", 1.0f, 0.5f);
-
+        
         await ToSignal(tween, Tween.SignalName.Finished);
-
+        
         _useTextureA = !_useTextureA;
-
+        
         await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
-
         await SetNewBackgroundImage();
     }
 
     private async Task ShowProjectScreen()
     {
         await ToSignal(GetTree().CreateTimer(10.0), SceneTreeTimer.SignalName.Timeout);
-
         if (_projectSelectionScreen == null) return;
-
         GetTree().ChangeSceneToPacked(_projectSelectionScreen);
     }
 }

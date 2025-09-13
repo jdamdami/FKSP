@@ -12,7 +12,6 @@ public partial class MainScreen : Node
     {
         DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, false);
         DisplayServer.WindowSetMode(DisplayServer.WindowMode.Maximized);
-
         GD.Print("SetWindowsSettings() - borderless OFF, maximized ON");
     }
 }
