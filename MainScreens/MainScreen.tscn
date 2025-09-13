@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckcjar0c2leqy"]
+[gd_scene load_steps=6 format=3 uid="uid://ckcjar0c2leqy"]
 
 [ext_resource type="Script" uid="uid://0xrc1sapvmo8" path="res://Scripts/MainScreen.cs" id="1_8wek8"]
 [ext_resource type="Texture2D" uid="uid://bj8k7uwap6fkv" path="res://LoadingScreenImages/DSCF1768.jpg" id="2_8wek8"]
 [ext_resource type="Script" uid="uid://bjdd8xkajwle2" path="res://Scripts/Components/LinkFolderComponent.cs" id="3_e2v5b"]
 [ext_resource type="PackedScene" uid="uid://c3432xjj0527i" path="res://MainScreens/Elements/PhotoThumbnail.tscn" id="4_4x4oj"]
+[ext_resource type="Script" uid="uid://6te8sojlauxc" path="res://Scripts/Components/PhotoEditingComponent.cs" id="5_clkgn"]
 
 [node name="MainScreen" type="Control"]
 layout_mode = 3
@@ -86,3 +87,7 @@ file_mode = 1
 access = 2
 filters = PackedStringArray("*.jpg")
 use_native_dialog = true
+
+[node name="PhotoEditingComponent" type="Node" parent="." node_paths=PackedStringArray("_pictureTextureRect")]
+script = ExtResource("5_clkgn")
+_pictureTextureRect = NodePath("../PhotoEdit")

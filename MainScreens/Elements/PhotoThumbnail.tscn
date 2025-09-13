@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://badlrucveri4u" path="res://Scripts/Components/PhotoThumbnail.cs" id="1_wsdcf"]
 [ext_resource type="Texture2D" uid="uid://ej0lvv810jn8" path="res://LoadingScreenImages/DSCF0748.jpg" id="2_jqjbc"]
 
-[node name="PhotoThumbnail" type="Control" node_paths=PackedStringArray("_textureRect")]
+[node name="PhotoThumbnail" type="Control" node_paths=PackedStringArray("_textureRect", "_thumbnailButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wsdcf")
 _textureRect = NodePath("TextureRect")
+_thumbnailButton = NodePath("Button")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(150, 150)
@@ -24,3 +25,12 @@ grow_vertical = 2
 texture = ExtResource("2_jqjbc")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
