@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckcjar0c2leqy"]
+[gd_scene load_steps=5 format=3 uid="uid://ckcjar0c2leqy"]
 
 [ext_resource type="Script" uid="uid://0xrc1sapvmo8" path="res://Scripts/MainScreen.cs" id="1_8wek8"]
 [ext_resource type="Texture2D" uid="uid://bj8k7uwap6fkv" path="res://LoadingScreenImages/DSCF1768.jpg" id="2_8wek8"]
 [ext_resource type="Script" uid="uid://bjdd8xkajwle2" path="res://Scripts/Components/LinkFolderComponent.cs" id="3_e2v5b"]
+[ext_resource type="PackedScene" uid="uid://c3432xjj0527i" path="res://MainScreens/Elements/PhotoThumbnail.tscn" id="4_4x4oj"]
 
 [node name="MainScreen" type="Control"]
 layout_mode = 3
@@ -43,9 +44,14 @@ offset_right = 500.0
 offset_bottom = 308.44
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ThumbnailsScroller"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/separation = 50
 
 [node name="LinkNewFolder" type="Button" parent="."]
 custom_minimum_size = Vector2(200, 30)
@@ -66,10 +72,12 @@ text = "LINK NEW FOLDER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LinkNewFolderComponent" type="Node" parent="." node_paths=PackedStringArray("_fileDialog", "_linkNewFolderButton")]
+[node name="LinkNewFolderComponent" type="Node" parent="." node_paths=PackedStringArray("_fileDialog", "_linkNewFolderButton", "_thunmnailsBoxContainer")]
 script = ExtResource("3_e2v5b")
 _fileDialog = NodePath("../LinkNewFolderFileDialog")
 _linkNewFolderButton = NodePath("../LinkNewFolder")
+_thunmnailsBoxContainer = NodePath("../ThumbnailsScroller/HBoxContainer")
+_photoThumbnailScene = ExtResource("4_4x4oj")
 
 [node name="LinkNewFolderFileDialog" type="FileDialog" parent="."]
 title = "Open File(s)"

@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://cskn67h1ifodq"]
+[gd_scene load_steps=16 format=3 uid="uid://cskn67h1ifodq"]
 
 [ext_resource type="Script" uid="uid://ypk2j0accddc" path="res://Scripts/LaunchScreen.cs" id="1_iutlk"]
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="2_il50t"]
 [ext_resource type="Resource" uid="uid://dmoybq3305nwt" path="res://LoadingScreenImages/Resources/Airplanes.tres" id="3_6oh3j"]
 [ext_resource type="Resource" uid="uid://v5cadsmv1mev" path="res://LoadingScreenImages/Resources/Cow.tres" id="4_il50t"]
 [ext_resource type="Resource" uid="uid://c1u8a0o7a0iqs" path="res://LoadingScreenImages/Resources/DSCF0242.tres" id="5_yddfy"]
@@ -23,7 +24,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iutlk")
-_photos = [ExtResource("3_6oh3j"), ExtResource("4_il50t"), ExtResource("5_yddfy"), ExtResource("6_xj71c"), ExtResource("7_goa2c"), ExtResource("8_gciau"), ExtResource("9_jv1bw"), ExtResource("10_ak2tc"), ExtResource("11_2wykg"), ExtResource("12_r6syi"), ExtResource("13_sp6tn"), ExtResource("14_3o5xj")]
+_photos = Array[ExtResource("2_il50t")]([ExtResource("3_6oh3j"), ExtResource("4_il50t"), ExtResource("5_yddfy"), ExtResource("6_xj71c"), ExtResource("7_goa2c"), ExtResource("8_gciau"), ExtResource("9_jv1bw"), ExtResource("10_ak2tc"), ExtResource("11_2wykg"), ExtResource("12_r6syi"), ExtResource("13_sp6tn"), ExtResource("14_3o5xj")])
 _textureRectA = NodePath("TextureRect")
 _textureRectB = NodePath("TextureRect2")
 _photographerName = NodePath("VBoxContainer/PhotographerName")
