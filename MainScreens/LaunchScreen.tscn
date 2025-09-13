@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://cskn67h1ifodq"]
+[gd_scene load_steps=15 format=3 uid="uid://cskn67h1ifodq"]
 
 [ext_resource type="Script" uid="uid://ypk2j0accddc" path="res://Scripts/LaunchScreen.cs" id="1_iutlk"]
-[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="2_ydigj"]
 [ext_resource type="Resource" uid="uid://dmoybq3305nwt" path="res://LoadingScreenImages/Resources/Airplanes.tres" id="3_6oh3j"]
 [ext_resource type="Resource" uid="uid://v5cadsmv1mev" path="res://LoadingScreenImages/Resources/Cow.tres" id="4_il50t"]
 [ext_resource type="Resource" uid="uid://c1u8a0o7a0iqs" path="res://LoadingScreenImages/Resources/DSCF0242.tres" id="5_yddfy"]
@@ -14,7 +13,7 @@
 [ext_resource type="Resource" uid="uid://cnu5yo14tn6wh" path="res://LoadingScreenImages/Resources/mushroomcloud.tres" id="12_r6syi"]
 [ext_resource type="Resource" uid="uid://b6p6awfwesog7" path="res://LoadingScreenImages/Resources/window.tres" id="13_sp6tn"]
 [ext_resource type="Resource" uid="uid://dkyuavoe8j2ni" path="res://LoadingScreenImages/Resources/WinterBridge.tres" id="14_3o5xj"]
-[ext_resource type="PackedScene" uid="uid://c1wxvowrr0gub" path="res://MainScreens/ProjectSelectionScreen.tscn" id="15_il50t"]
+[ext_resource type="PackedScene" uid="uid://ckcjar0c2leqy" path="res://MainScreens/MainScreen.tscn" id="14_6oh3j"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("_textureRectA", "_textureRectB", "_photographerName", "_photographyTitle")]
 layout_mode = 3
@@ -24,12 +23,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iutlk")
-_photos = Array[ExtResource("2_ydigj")]([ExtResource("3_6oh3j"), ExtResource("4_il50t"), ExtResource("5_yddfy"), ExtResource("6_xj71c"), ExtResource("7_goa2c"), ExtResource("8_gciau"), ExtResource("9_jv1bw"), ExtResource("10_ak2tc"), ExtResource("11_2wykg"), ExtResource("12_r6syi"), ExtResource("13_sp6tn"), ExtResource("14_3o5xj")])
+_photos = [ExtResource("3_6oh3j"), ExtResource("4_il50t"), ExtResource("5_yddfy"), ExtResource("6_xj71c"), ExtResource("7_goa2c"), ExtResource("8_gciau"), ExtResource("9_jv1bw"), ExtResource("10_ak2tc"), ExtResource("11_2wykg"), ExtResource("12_r6syi"), ExtResource("13_sp6tn"), ExtResource("14_3o5xj")]
 _textureRectA = NodePath("TextureRect")
 _textureRectB = NodePath("TextureRect2")
 _photographerName = NodePath("VBoxContainer/PhotographerName")
 _photographyTitle = NodePath("VBoxContainer/PhotoTitle")
-_projectScreen = ExtResource("15_il50t")
+_projectScreen = ExtResource("14_6oh3j")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

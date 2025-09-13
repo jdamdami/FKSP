@@ -26,6 +26,14 @@ public partial class LaunchScreen : Control
 
     private void CreateLaunchWindow()
     {
+        DisplayServer.WindowSetSize(new Vector2I(1280, 720));
+
+        DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+        
+        DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.ResizeDisabled, true);
+        
+        DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true);
+        
         _textureRectA.StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered;
         _textureRectA.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
         _textureRectA.Modulate = new Color(1, 1, 1, 1);

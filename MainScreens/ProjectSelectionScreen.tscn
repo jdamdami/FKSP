@@ -1,14 +1,226 @@
-[gd_scene format=3 uid="uid://c1wxvowrr0gub"]
+[gd_scene load_steps=5 format=3 uid="uid://c1wxvowrr0gub"]
 
-[node name="ProjectSelectionScreen" type="Control"]
+[ext_resource type="Texture2D" uid="uid://drqsgq2xwts8f" path="res://LoadingScreenImages/DSCF0242.jpg" id="1_bbwjm"]
+[ext_resource type="Shader" uid="uid://c5mh3vyysq124" path="res://Shaders/Blur.gdshader" id="1_flce5"]
+[ext_resource type="Script" uid="uid://d3mfrme20xr7b" path="res://Scripts/ProjectSelectionScreen.cs" id="1_i2cyq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2cyq"]
+shader = ExtResource("1_flce5")
+shader_parameter/radius = 15.0
+shader_parameter/sigma = 10.0
+
+[node name="ProjectSelectionScreen" type="Control" node_paths=PackedStringArray("_createProjectButton", "_openProjectButton", "_setProjectPathButton", "_createProjectFinalButton", "_cancelCreateProjectButton", "_setProjectPathButtonLabel", "_setProjectNameTextInput", "_mainCtaTextBox", "_initialSelectionContainer", "_createNewProjectContainer", "_folderDialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_i2cyq")
+_createProjectButton = NodePath("BaseMainScreen/InitialSelection/CreateProjectButton")
+_openProjectButton = NodePath("BaseMainScreen/InitialSelection/OpenProjectButton")
+_setProjectPathButton = NodePath("BaseMainScreen/CreateNewProjectContainer/HBoxContainer2/SelectPathButton")
+_createProjectFinalButton = NodePath("BaseMainScreen/CreateNewProjectContainer/CreateProjectButtonFinal")
+_cancelCreateProjectButton = NodePath("BaseMainScreen/CancelCreateProjectButton")
+_setProjectPathButtonLabel = NodePath("BaseMainScreen/CreateNewProjectContainer/HBoxContainer2/SelectPathButton/SelectPathButtonLabel")
+_setProjectNameTextInput = NodePath("BaseMainScreen/CreateNewProjectContainer/HBoxContainer/TextEdit")
+_mainCtaTextBox = NodePath("BaseMainScreen/MainCtaText")
+_initialSelectionContainer = NodePath("BaseMainScreen/InitialSelection")
+_createNewProjectContainer = NodePath("BaseMainScreen/CreateNewProjectContainer")
+_folderDialog = NodePath("FileDialog")
+_setProjectPathDefaultCta = "SELECT PATH "
+_openingDefaultCta = "[b]CREATE A NEW PROJECT OR OPEN AN EXISTING ONE[/b]"
+_createProjectDefaultCta = "[b]NAME AND SELECT A FOLDER FOR YOUR NEW PROJECT[/b]"
+_visibleColor = Color(1, 1, 1, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+material = SubResource("ShaderMaterial_i2cyq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bbwjm")
+expand_mode = 1
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="BaseMainScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainCtaText" type="RichTextLabel" parent="BaseMainScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -313.0
+offset_top = -154.0
+offset_right = 313.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "CREATE A NEW PROJECT OR OPEN AN EXISTING ONE
+"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InitialSelection" type="VBoxContainer" parent="BaseMainScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.5
+offset_top = 26.0
+offset_right = 160.5
+offset_bottom = 172.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="CreateProjectButton" type="Button" parent="BaseMainScreen/InitialSelection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="BaseMainScreen/InitialSelection/CreateProjectButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CREATE PROJECT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OpenProjectButton" type="Button" parent="BaseMainScreen/InitialSelection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="BaseMainScreen/InitialSelection/OpenProjectButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "OPEN PROJECT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreateNewProjectContainer" type="VBoxContainer" parent="BaseMainScreen"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -263.0
+offset_top = 26.0
+offset_right = 263.0
+offset_bottom = 235.925
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BaseMainScreen/CreateNewProjectContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BaseMainScreen/CreateNewProjectContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PROJECT NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="BaseMainScreen/CreateNewProjectContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BaseMainScreen/CreateNewProjectContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BaseMainScreen/CreateNewProjectContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PATH"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SelectPathButton" type="Button" parent="BaseMainScreen/CreateNewProjectContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SelectPathButtonLabel" type="Label" parent="BaseMainScreen/CreateNewProjectContainer/HBoxContainer2/SelectPathButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SELECT PATH"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="CreateProjectButtonFinal" type="Button" parent="BaseMainScreen/CreateNewProjectContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="BaseMainScreen/CreateNewProjectContainer/CreateProjectButtonFinal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CREATE PROJECT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CancelCreateProjectButton" type="Button" parent="BaseMainScreen"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 266.0
+offset_right = 100.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="BaseMainScreen/CancelCreateProjectButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CANCEL"
+horizontal_alignment = 1
+vertical_alignment = 1

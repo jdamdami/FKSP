@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckcjar0c2leqy"]
+[gd_scene load_steps=3 format=3 uid="uid://ckcjar0c2leqy"]
 
+[ext_resource type="Script" uid="uid://0xrc1sapvmo8" path="res://Scripts/MainScreen.cs" id="1_8wek8"]
 [ext_resource type="Texture2D" uid="uid://drqsgq2xwts8f" path="res://LoadingScreenImages/DSCF0242.jpg" id="1_klq72"]
 
 [node name="MainScreen" type="Control"]
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8wek8")
 
 [node name="PictureInEdit" type="TextureRect" parent="."]
 layout_mode = 1
