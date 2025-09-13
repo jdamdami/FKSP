@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ce2yafa33tl0i"]
+
+[ext_resource type="Script" path="res://Scripts/LauchPicData.cs" id="1_g5ko2"]
+
+[resource]
+script = ExtResource("1_g5ko2")

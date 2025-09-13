@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://ctcgb37agovl0"]
+
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="1_n1isk"]
+[ext_resource type="Texture2D" uid="uid://bj877hw3mcyv1" path="res://LoadingScreenImages/DSCF0435.jpg" id="1_rigj7"]
+
+[resource]
+script = ExtResource("1_n1isk")
+Title = "Dusk"
+Photographer = "Jalil"
+Image = ExtResource("1_rigj7")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"

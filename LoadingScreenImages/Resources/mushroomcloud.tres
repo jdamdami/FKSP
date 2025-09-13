@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://cnu5yo14tn6wh"]
+
+[ext_resource type="Texture2D" uid="uid://2bjyg5htu6kv" path="res://LoadingScreenImages/mushroomcloud.png" id="1_ktusw"]
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="2_c10w8"]
+
+[resource]
+script = ExtResource("2_c10w8")
+Title = "Mushroom Cloud"
+Photographer = "Maria"
+Image = ExtResource("1_ktusw")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"

@@ -1,0 +1,101 @@
+[gd_scene load_steps=15 format=3 uid="uid://cskn67h1ifodq"]
+
+[ext_resource type="Script" uid="uid://ypk2j0accddc" path="res://Scripts/LaunchScreen.cs" id="1_iutlk"]
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="2_ydigj"]
+[ext_resource type="Resource" uid="uid://dmoybq3305nwt" path="res://LoadingScreenImages/Resources/Airplanes.tres" id="3_6oh3j"]
+[ext_resource type="Resource" uid="uid://v5cadsmv1mev" path="res://LoadingScreenImages/Resources/Cow.tres" id="4_il50t"]
+[ext_resource type="Resource" uid="uid://c1u8a0o7a0iqs" path="res://LoadingScreenImages/Resources/DSCF0242.tres" id="5_yddfy"]
+[ext_resource type="Resource" uid="uid://ctcgb37agovl0" path="res://LoadingScreenImages/Resources/DSCF0435.tres" id="6_xj71c"]
+[ext_resource type="Resource" uid="uid://cheqyscl1so8n" path="res://LoadingScreenImages/Resources/DSCF0748.tres" id="7_goa2c"]
+[ext_resource type="Resource" uid="uid://b3x066ihr8kca" path="res://LoadingScreenImages/Resources/DSCF4036.tres" id="8_gciau"]
+[ext_resource type="Resource" uid="uid://7j1tbmjp7b4k" path="res://LoadingScreenImages/Resources/DSCF4121.tres" id="9_jv1bw"]
+[ext_resource type="Resource" uid="uid://dk2wdmsqbrnrb" path="res://LoadingScreenImages/Resources/GreenTree.tres" id="10_ak2tc"]
+[ext_resource type="Resource" uid="uid://curk75onqlhly" path="res://LoadingScreenImages/Resources/HSCA.tres" id="11_2wykg"]
+[ext_resource type="Resource" uid="uid://cnu5yo14tn6wh" path="res://LoadingScreenImages/Resources/mushroomcloud.tres" id="12_r6syi"]
+[ext_resource type="Resource" uid="uid://b6p6awfwesog7" path="res://LoadingScreenImages/Resources/window.tres" id="13_sp6tn"]
+[ext_resource type="Resource" uid="uid://dkyuavoe8j2ni" path="res://LoadingScreenImages/Resources/WinterBridge.tres" id="14_3o5xj"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("_textureRectA", "_textureRectB", "_photographerName", "_photographyTitle")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iutlk")
+_photos = Array[ExtResource("2_ydigj")]([ExtResource("3_6oh3j"), ExtResource("4_il50t"), ExtResource("5_yddfy"), ExtResource("6_xj71c"), ExtResource("7_goa2c"), ExtResource("8_gciau"), ExtResource("9_jv1bw"), ExtResource("10_ak2tc"), ExtResource("11_2wykg"), ExtResource("12_r6syi"), ExtResource("13_sp6tn"), ExtResource("14_3o5xj")])
+_textureRectA = NodePath("TextureRect")
+_textureRectB = NodePath("TextureRect2")
+_photographerName = NodePath("PhotographerName")
+_photographyTitle = NodePath("PhotoTitle")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -33.0
+offset_right = 541.0
+offset_bottom = 56.0
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 50
+text = "FKS - Photography"
+
+[node name="PhotographerName" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = 238.0
+offset_right = -141.0
+offset_bottom = 258.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "Photographer Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PhotoTitle" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -293.0
+offset_top = 208.0
+offset_right = -150.0
+offset_bottom = 232.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "Photo Title
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

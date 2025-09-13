@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://dkyuavoe8j2ni"]
+
+[ext_resource type="Texture2D" uid="uid://bj8k7uwap6fkv" path="res://LoadingScreenImages/DSCF1768.jpg" id="1_lsxdy"]
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="1_vgqh2"]
+
+[resource]
+script = ExtResource("1_vgqh2")
+Title = "Winter Bridge"
+Photographer = "Jalil"
+Image = ExtResource("1_lsxdy")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"

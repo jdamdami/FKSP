@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://dk2wdmsqbrnrb"]
+
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="1_udmry"]
+[ext_resource type="Texture2D" uid="uid://fwmhc0htadsk" path="res://LoadingScreenImages/DSCF1349.jpg" id="1_uf1gh"]
+
+[resource]
+script = ExtResource("1_udmry")
+Title = "Green Tree"
+Photographer = "Jalil"
+Image = ExtResource("1_uf1gh")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"

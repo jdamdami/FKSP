@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://b3x066ihr8kca"]
+
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="1_381d8"]
+[ext_resource type="Texture2D" uid="uid://cg7x73h6maulw" path="res://LoadingScreenImages/DSCF4036.jpg" id="1_ipqhx"]
+
+[resource]
+script = ExtResource("1_381d8")
+Title = "Plane"
+Photographer = ""
+Image = ExtResource("1_ipqhx")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"

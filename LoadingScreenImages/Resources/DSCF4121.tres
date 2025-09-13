@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://7j1tbmjp7b4k"]
+
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="1_bysqs"]
+[ext_resource type="Texture2D" uid="uid://b368mygm3i0mo" path="res://LoadingScreenImages/DSCF4121.jpg" id="1_u3n76"]
+
+[resource]
+script = ExtResource("1_bysqs")
+Title = "Valdres"
+Photographer = "Jalil"
+Image = ExtResource("1_u3n76")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"

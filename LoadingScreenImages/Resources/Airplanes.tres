@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://dmoybq3305nwt"]
+
+[ext_resource type="Texture2D" uid="uid://c2k726pe30b47" path="res://LoadingScreenImages/fksplogo.jpg" id="1_t4ol1"]
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="2_qifsw"]
+
+[resource]
+script = ExtResource("2_qifsw")
+Title = "Airplanes"
+Photographer = "Jalil"
+Image = ExtResource("1_t4ol1")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"

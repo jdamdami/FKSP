@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://c1u8a0o7a0iqs"]
+
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="1_8d6fm"]
+[ext_resource type="Texture2D" uid="uid://drqsgq2xwts8f" path="res://LoadingScreenImages/DSCF0242.jpg" id="1_yw4c5"]
+
+[resource]
+script = ExtResource("1_8d6fm")
+Title = "Mirror"
+Photographer = "Jalil"
+Image = ExtResource("1_yw4c5")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"

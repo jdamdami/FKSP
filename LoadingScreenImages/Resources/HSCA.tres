@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://curk75onqlhly"]
+
+[ext_resource type="Texture2D" uid="uid://d0w2cljo0cs35" path="res://LoadingScreenImages/DSCF2953.jpg" id="1_b33hs"]
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="1_dtrcw"]
+
+[resource]
+script = ExtResource("1_dtrcw")
+Title = "Stavanger Night"
+Photographer = "Jalil"
+Image = ExtResource("1_b33hs")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"

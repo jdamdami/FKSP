@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LaunchPicData" load_steps=3 format=3 uid="uid://v5cadsmv1mev"]
+
+[ext_resource type="Texture2D" uid="uid://dxknxbyajtqta" path="res://LoadingScreenImages/cow.png" id="1_vtyf2"]
+[ext_resource type="Script" uid="uid://gthwcld4ybwc" path="res://Scripts/LaunchPicData.cs" id="2_vpk8m"]
+
+[resource]
+script = ExtResource("2_vpk8m")
+Title = "Cow"
+Photographer = "Maria"
+Image = ExtResource("1_vtyf2")
+metadata/_custom_type_script = "uid://gthwcld4ybwc"
