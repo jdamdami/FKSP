@@ -66,13 +66,15 @@ text = "LINK NEW FOLDER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LinkNewFolderComponent" type="Node" parent="." node_paths=PackedStringArray("_fileDialog")]
+[node name="LinkNewFolderComponent" type="Node" parent="." node_paths=PackedStringArray("_fileDialog", "_linkNewFolderButton")]
 script = ExtResource("3_e2v5b")
 _fileDialog = NodePath("../LinkNewFolderFileDialog")
+_linkNewFolderButton = NodePath("../LinkNewFolder")
 
 [node name="LinkNewFolderFileDialog" type="FileDialog" parent="."]
-title = "Open a File or Directory"
+title = "Open File(s)"
 ok_button_text = "Open"
-file_mode = 3
+file_mode = 1
 access = 2
-filters = PackedStringArray("*jpeg")
+filters = PackedStringArray("* .jpg")
+use_native_dialog = true
