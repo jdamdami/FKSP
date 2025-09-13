@@ -1,24 +1,32 @@
 using Godot;
 using System;
+using System.IO;
 
 public partial class ProjectSelectionScreen : Node
 {
+    [ExportCategory("Project Screen")]
+    [Export] private PackedScene _projectScreen;
+    
     [ExportCategory("Project Buttons")]
     [Export] private Button _createProjectButton;
     [Export] private Button _openProjectButton;
     [Export] private Button _setProjectPathButton;
     [Export] private Button _createProjectFinalButton;
     [Export] private Button _cancelCreateProjectButton;
+    [Export] private Button _exitAppButton;
     
     [ExportCategory("Project Labels and text inputs")]
     [Export] private Label _setProjectPathButtonLabel;
     [Export] private TextEdit _setProjectNameTextInput;
     [Export] private RichTextLabel _mainCtaTextBox;
-    
+
     [ExportCategory("Screen elements")]
+    [Export] private Control _baseMainScreen;
     [Export] private VBoxContainer _initialSelectionContainer;
     [Export] private VBoxContainer _createNewProjectContainer;
-    [Export]  private FileDialog _folderDialog;
+    [Export] private Control _loadingProjectSubScreen;
+    [Export]  private FileDialog _newProjectFolderDialog;
+    [Export] private FileDialog _openProjectFolderDialog;
     
     [ExportCategory("Default CTAs")]
     [Export] private string _setProjectPathDefaultCta;
@@ -34,14 +42,19 @@ public partial class ProjectSelectionScreen : Node
 
     public override void _Ready()
     {
-        if (_folderDialog != null)
+        if (_newProjectFolderDialog != null)
         {
-            _folderDialog.DirSelected += OnFolderSelected; 
+            _newProjectFolderDialog.DirSelected += OnNewProjectFolderSelected; 
+        }
+
+        if (_openProjectFolderDialog != null)
+        {
+            _openProjectFolderDialog.FileSelected += OnOpenProjectPathSelected;
         }
 
         if (_setProjectPathButton != null)
         {
-            _setProjectPathButton.Pressed += OpenFolderDialog;
+            _setProjectPathButton.Pressed += OpenFolderDialogForNewProject;
             
             _setProjectPathButtonLabel.Text = _setProjectPathDefaultCta;
         }
@@ -79,6 +92,16 @@ public partial class ProjectSelectionScreen : Node
             _createNewProjectContainer.SetVisible(false);
         }
 
+        if (_exitAppButton != null)
+        {
+            _exitAppButton.Pressed += OnExitAppButtonPressed;
+        }
+
+        if (_openProjectButton != null)
+        {
+            _openProjectButton.Pressed += OnOpenProjectButtonPressed;
+        }
+
         _mainCtaTextBox.Text = _openingDefaultCta;
 
 
@@ -88,7 +111,32 @@ public partial class ProjectSelectionScreen : Node
 
     }
 
-    private void OnFolderSelected(string folderPath)
+    private void OnOpenProjectButtonPressed()
+    {
+        _openProjectFolderDialog.PopupCentered(new Vector2I(800, 600));
+    }
+
+    private void OnOpenProjectPathSelected(string folderPath)
+    {
+        GD.Print(folderPath);
+        
+        _baseMainScreen.SetVisible(false);
+        _loadingProjectSubScreen.SetVisible(true);
+        
+        OpenProjectScreen();
+    }
+
+    private void OnExitAppButtonPressed()
+    {
+        GetTree().Quit();
+    }
+
+    private void SetWindowsSettings()
+    {
+        DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, false);
+    }
+
+    private void OnNewProjectFolderSelected(string folderPath)
     {
         GD.Print("Selected folder: " + folderPath);
         
@@ -100,9 +148,9 @@ public partial class ProjectSelectionScreen : Node
         
     }
 
-    private void OpenFolderDialog()
+    private void OpenFolderDialogForNewProject()
     {
-        _folderDialog.PopupCentered(new Vector2I(800, 600));
+        _newProjectFolderDialog.PopupCentered(new Vector2I(800, 600));
     }
 
     private void OnNewProjectNameTextInputChanged()
@@ -137,7 +185,44 @@ public partial class ProjectSelectionScreen : Node
     }
     private void OnCreateNewProjectFinalButtonPressed()
     {
-        GD.Print("Creating new project " + _newProjectName + "in folder : " + _selectedProjectPath);
+        _baseMainScreen.SetVisible(false);
+        _loadingProjectSubScreen.SetVisible(true);
+        
+        string fileName = _newProjectName + ".fksp";
+        string fullPath = Path.Combine(_selectedProjectPath, fileName);
+
+        GD.Print("Creating new project " + _newProjectName + " in folder: " + _selectedProjectPath);
+        GD.Print("Full path: " + fullPath);
+
+        try
+        {
+            
+            if (!Directory.Exists(_selectedProjectPath))
+            {
+                GD.PrintErr("Folder does not exist: " + _selectedProjectPath);
+                return;
+            }
+
+            
+            using (FileStream fs = File.Create(fullPath))
+            {
+                using (StreamWriter writer = new StreamWriter(fs))
+                {
+                    writer.WriteLine("FKSP Project File");
+                    writer.WriteLine("ProjectName=" + _newProjectName);
+                    writer.WriteLine("Created=" + System.DateTime.Now);
+                }
+            }
+
+            GD.Print("Project file created successfully at: " + fullPath);
+            
+            OpenProjectScreen();
+            
+        }
+        catch (Exception ex)
+        {
+            GD.PrintErr("Error creating project file: " + ex.Message);
+        }
     }
 
     private void OnCancelCreateProjectButtonPressed()
@@ -146,6 +231,13 @@ public partial class ProjectSelectionScreen : Node
         _createNewProjectContainer.SetVisible(false);
         _cancelCreateProjectButton.SetVisible(false);
         _mainCtaTextBox.Text = _openingDefaultCta;
+    }
+    
+    private  async void OpenProjectScreen()
+    {
+        await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
+        
+        GetTree().ChangeSceneToPacked(_projectScreen);
     }
     
     

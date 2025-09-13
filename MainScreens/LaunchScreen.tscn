@@ -13,7 +13,7 @@
 [ext_resource type="Resource" uid="uid://cnu5yo14tn6wh" path="res://LoadingScreenImages/Resources/mushroomcloud.tres" id="12_r6syi"]
 [ext_resource type="Resource" uid="uid://b6p6awfwesog7" path="res://LoadingScreenImages/Resources/window.tres" id="13_sp6tn"]
 [ext_resource type="Resource" uid="uid://dkyuavoe8j2ni" path="res://LoadingScreenImages/Resources/WinterBridge.tres" id="14_3o5xj"]
-[ext_resource type="PackedScene" uid="uid://ckcjar0c2leqy" path="res://MainScreens/MainScreen.tscn" id="14_6oh3j"]
+[ext_resource type="PackedScene" uid="uid://c1wxvowrr0gub" path="res://MainScreens/ProjectSelectionScreen.tscn" id="15_il50t"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("_textureRectA", "_textureRectB", "_photographerName", "_photographyTitle")]
 layout_mode = 3
@@ -28,7 +28,7 @@ _textureRectA = NodePath("TextureRect")
 _textureRectB = NodePath("TextureRect2")
 _photographerName = NodePath("VBoxContainer/PhotographerName")
 _photographyTitle = NodePath("VBoxContainer/PhotoTitle")
-_projectScreen = ExtResource("14_6oh3j")
+_projectSelectionScreen = ExtResource("15_il50t")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

@@ -3,17 +3,22 @@ using System;
 using System.Threading.Tasks;
 
 public partial class LaunchScreen : Control
-{
+{   
+    [ExportCategory("Background Images")]
     [Export] private Godot.Collections.Array<LaunchPicData> _photos = new();
     [Export] private TextureRect _textureRectA;
     [Export] private TextureRect _textureRectB;
+    
+    [ExportCategory("Pictures Data")]
     [Export] private RichTextLabel _photographerName;
     [Export] private RichTextLabel _photographyTitle;
-    [Export] private PackedScene _projectScreen;
+    
+    [ExportCategory("Project Selection Screen")]
+    [Export] private PackedScene _projectSelectionScreen;
 
     private Random _rand = new Random();
     private Godot.Collections.Array<LaunchPicData> _backgroundImagesPool = new();
-    private bool _useA = true;
+    private bool _useTextureA = true;
     private bool _firstImage = true;
 
     public override void _Ready()
@@ -100,7 +105,7 @@ public partial class LaunchScreen : Control
         TextureRect fadeOutRect;
         TextureRect fadeInRect;
 
-        if (_useA)
+        if (_useTextureA)
         {
             fadeOutRect = _textureRectA;
             fadeInRect = _textureRectB;
@@ -123,7 +128,7 @@ public partial class LaunchScreen : Control
 
         await ToSignal(tween, Tween.SignalName.Finished);
 
-        _useA = !_useA;
+        _useTextureA = !_useTextureA;
 
         await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
 
@@ -134,8 +139,8 @@ public partial class LaunchScreen : Control
     {
         await ToSignal(GetTree().CreateTimer(10.0), SceneTreeTimer.SignalName.Timeout);
 
-        if (_projectScreen == null) return;
+        if (_projectSelectionScreen == null) return;
 
-        GetTree().ChangeSceneToPacked(_projectScreen);
+        GetTree().ChangeSceneToPacked(_projectSelectionScreen);
     }
 }

@@ -1,15 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1wxvowrr0gub"]
+[gd_scene load_steps=6 format=3 uid="uid://c1wxvowrr0gub"]
 
 [ext_resource type="Texture2D" uid="uid://drqsgq2xwts8f" path="res://LoadingScreenImages/DSCF0242.jpg" id="1_bbwjm"]
 [ext_resource type="Shader" uid="uid://c5mh3vyysq124" path="res://Shaders/Blur.gdshader" id="1_flce5"]
 [ext_resource type="Script" uid="uid://d3mfrme20xr7b" path="res://Scripts/ProjectSelectionScreen.cs" id="1_i2cyq"]
+[ext_resource type="PackedScene" uid="uid://ckcjar0c2leqy" path="res://MainScreens/MainScreen.tscn" id="2_ne6fa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i2cyq"]
 shader = ExtResource("1_flce5")
 shader_parameter/radius = 15.0
 shader_parameter/sigma = 10.0
 
-[node name="ProjectSelectionScreen" type="Control" node_paths=PackedStringArray("_createProjectButton", "_openProjectButton", "_setProjectPathButton", "_createProjectFinalButton", "_cancelCreateProjectButton", "_setProjectPathButtonLabel", "_setProjectNameTextInput", "_mainCtaTextBox", "_initialSelectionContainer", "_createNewProjectContainer", "_folderDialog")]
+[node name="ProjectSelectionScreen" type="Control" node_paths=PackedStringArray("_createProjectButton", "_openProjectButton", "_setProjectPathButton", "_createProjectFinalButton", "_cancelCreateProjectButton", "_exitAppButton", "_setProjectPathButtonLabel", "_setProjectNameTextInput", "_mainCtaTextBox", "_baseMainScreen", "_initialSelectionContainer", "_createNewProjectContainer", "_loadingProjectSubScreen", "_newProjectFolderDialog", "_openProjectFolderDialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,17 +18,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i2cyq")
+_projectScreen = ExtResource("2_ne6fa")
 _createProjectButton = NodePath("BaseMainScreen/InitialSelection/CreateProjectButton")
 _openProjectButton = NodePath("BaseMainScreen/InitialSelection/OpenProjectButton")
 _setProjectPathButton = NodePath("BaseMainScreen/CreateNewProjectContainer/HBoxContainer2/SelectPathButton")
 _createProjectFinalButton = NodePath("BaseMainScreen/CreateNewProjectContainer/CreateProjectButtonFinal")
 _cancelCreateProjectButton = NodePath("BaseMainScreen/CancelCreateProjectButton")
+_exitAppButton = NodePath("BaseMainScreen/ExitApp")
 _setProjectPathButtonLabel = NodePath("BaseMainScreen/CreateNewProjectContainer/HBoxContainer2/SelectPathButton/SelectPathButtonLabel")
 _setProjectNameTextInput = NodePath("BaseMainScreen/CreateNewProjectContainer/HBoxContainer/TextEdit")
 _mainCtaTextBox = NodePath("BaseMainScreen/MainCtaText")
+_baseMainScreen = NodePath("BaseMainScreen")
 _initialSelectionContainer = NodePath("BaseMainScreen/InitialSelection")
 _createNewProjectContainer = NodePath("BaseMainScreen/CreateNewProjectContainer")
-_folderDialog = NodePath("FileDialog")
+_loadingProjectSubScreen = NodePath("LoadingProjectSubScreen")
+_newProjectFolderDialog = NodePath("NewProjectPathFileDialog")
+_openProjectFolderDialog = NodePath("OpenProjectFileDialog")
 _setProjectPathDefaultCta = "SELECT PATH "
 _openingDefaultCta = "[b]CREATE A NEW PROJECT OR OPEN AN EXISTING ONE[/b]"
 _createProjectDefaultCta = "[b]NAME AND SELECT A FOLDER FOR YOUR NEW PROJECT[/b]"
@@ -44,11 +50,20 @@ grow_vertical = 2
 texture = ExtResource("1_bbwjm")
 expand_mode = 1
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="NewProjectPathFileDialog" type="FileDialog" parent="."]
 title = "Open a Directory"
 ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
+use_native_dialog = true
+
+[node name="OpenProjectFileDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.fksp")
 use_native_dialog = true
 
 [node name="BaseMainScreen" type="Control" parent="."]
@@ -224,3 +239,60 @@ grow_vertical = 2
 text = "CANCEL"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ExitApp" type="Button" parent="BaseMainScreen"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 341.36
+offset_top = -300.87
+offset_right = 541.36
+offset_bottom = -250.87
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="BaseMainScreen/ExitApp"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -11.5
+offset_right = 34.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "EXIT APP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoadingProjectSubScreen" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LoadingProject" type="Label" parent="LoadingProjectSubScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.5
+offset_top = -11.5
+offset_right = 73.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "LOADING PROJECT "
