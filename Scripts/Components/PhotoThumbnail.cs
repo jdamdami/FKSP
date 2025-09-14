@@ -42,14 +42,14 @@ public partial class PhotoThumbnail : Control
             }
         }
         
-        _photoEditComponent.SetCurrentPictureForEdit(_textureRect.Texture);
+        _photoEditComponent.SetCurrentPictureForEdit(_path);
     }
 
     public void SetPhotoThumbnail(Texture2D submittedTexture,string path)
     { 
         _textureRect.Texture = submittedTexture;
         _path = path;
-        
+
         if (submittedTexture != null)
         {
             int w = submittedTexture.GetWidth();
