@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckcjar0c2leqy"]
+[gd_scene load_steps=7 format=3 uid="uid://ckcjar0c2leqy"]
 
 [ext_resource type="Script" uid="uid://0xrc1sapvmo8" path="res://Scripts/MainScreen.cs" id="1_8wek8"]
 [ext_resource type="Texture2D" uid="uid://bj8k7uwap6fkv" path="res://LoadingScreenImages/DSCF1768.jpg" id="2_8wek8"]
 [ext_resource type="Script" uid="uid://bjdd8xkajwle2" path="res://Scripts/Components/LinkFolderComponent.cs" id="3_e2v5b"]
+[ext_resource type="Script" uid="uid://beqlnljcxuq6t" path="res://Scripts/Components/TaskProgressionComponent.cs" id="3_nu20x"]
 [ext_resource type="PackedScene" uid="uid://c3432xjj0527i" path="res://MainScreens/Elements/PhotoThumbnail.tscn" id="4_4x4oj"]
 [ext_resource type="Script" uid="uid://6te8sojlauxc" path="res://Scripts/Components/PhotoEditingComponent.cs" id="5_clkgn"]
 
@@ -74,12 +75,39 @@ text = "LINK NEW FOLDER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LinkNewFolderComponent" type="Node" parent="." node_paths=PackedStringArray("_fileDialog", "_linkNewFolderButton", "_thunmnailsBoxContainer")]
+[node name="TaskProgression" type="VBoxContainer" parent="." node_paths=PackedStringArray("_taskNameLabel", "_progressBar")]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 27.325
+offset_right = 250.0
+offset_bottom = 81.325
+grow_horizontal = 2
+script = ExtResource("3_nu20x")
+_taskNameLabel = NodePath("TaskNameLabel")
+_progressBar = NodePath("TaskProgressBar")
+
+[node name="TaskNameLabel" type="Label" parent="TaskProgression"]
+layout_mode = 2
+text = "TASK NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TaskProgressBar" type="ProgressBar" parent="TaskProgression"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="LinkNewFolderComponent" type="Node" parent="." node_paths=PackedStringArray("_fileDialog", "_linkNewFolderButton", "_thumbnailsBoxContainer", "_taskProgressionBox")]
 script = ExtResource("3_e2v5b")
 _fileDialog = NodePath("../LinkNewFolderFileDialog")
 _linkNewFolderButton = NodePath("../LinkNewFolder")
-_thunmnailsBoxContainer = NodePath("../ThumbnailsScroller/HBoxContainer")
+_thumbnailsBoxContainer = NodePath("../ThumbnailsScroller/HBoxContainer")
 _photoThumbnailScene = ExtResource("4_4x4oj")
+_taskProgressionBox = NodePath("../TaskProgression")
+_importingFilesProgressDescription = "Importing "
 
 [node name="LinkNewFolderFileDialog" type="FileDialog" parent="."]
 title = "Open File(s)"
