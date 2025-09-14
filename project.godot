@@ -17,6 +17,10 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="uid://cnhhh5rr6suft"
 config/icon="res://icon.svg"
 
+[autoload]
+
+AppState="*res://Scripts/Singleton/AppState.cs"
+
 [dotnet]
 
 project/assembly_name="FKSP"

@@ -37,25 +37,54 @@ public partial class ProjectSelectionScreen : Node
     [Export] Color _invisibleColor = new Color(255, 255, 255, 0);
     [Export] Color _visibleColor = new Color(255, 255, 255, 255);
 
-    private string _selectedProjectPath;
+    private string _selectedProjectFolderPath;
+    private string _currentFullProjectPath;
     private string _newProjectName;
+    private AppState _appState;
 
     public override void _Ready()
+    {
+        GD.Print("Project Selection Screen");
+        
+        SetAppState();
+        SetBindings();
+        SetInitialStates();
+        
+        
+    }
+
+    private void SetAppState()
+    {
+        _appState = (AppState)GetNode("/root/AppState");
+
+        if (_appState == null)
+        {
+            GD.PrintErr("AppState not found");
+        }
+        
+    }
+
+    private void SetBindings()
     {
         _newProjectFolderDialog.DirSelected += OnNewProjectFolderSelected; 
         _openProjectFolderDialog.FileSelected += OnOpenProjectPathSelected;
         _setProjectPathButton.Pressed += OpenFolderDialogForNewProject;
-        _setProjectPathButtonLabel.Text = _setProjectPathDefaultCta;
         _setProjectNameTextInput.TextChanged += OnNewProjectNameTextInputChanged;
         _createProjectButton.Pressed += OnCreateNewProjectButtonPressed;
-        _createProjectFinalButton.SetModulate(_invisibleColor);
         _createProjectFinalButton.Pressed += OnCreateNewProjectFinalButtonPressed;
         _cancelCreateProjectButton.Pressed += OnCancelCreateProjectButtonPressed;
+        _exitAppButton.Pressed += OnExitAppButtonPressed;
+        _openProjectButton.Pressed += OnOpenProjectButtonPressed;
+        
+    }
+
+    private void SetInitialStates()
+    {
+        _setProjectPathButtonLabel.Text = _setProjectPathDefaultCta;
+        _createProjectFinalButton.SetModulate(_invisibleColor);
         _cancelCreateProjectButton.SetVisible(false);
         _initialSelectionContainer.SetVisible(true);
         _createNewProjectContainer.SetVisible(false);
-        _exitAppButton.Pressed += OnExitAppButtonPressed;
-        _openProjectButton.Pressed += OnOpenProjectButtonPressed;
         _mainCtaTextBox.Text = _openingDefaultCta;
     }
 
@@ -64,11 +93,12 @@ public partial class ProjectSelectionScreen : Node
         _openProjectFolderDialog.PopupCentered(new Vector2I(800, 600));
     }
 
-    private void OnOpenProjectPathSelected(string folderPath)
+    private void OnOpenProjectPathSelected(string projectPath)
     {
-        GD.Print(folderPath);
+        GD.Print(projectPath);
         _baseMainScreen.SetVisible(false);
         _loadingProjectSubScreen.SetVisible(true);
+        _currentFullProjectPath = projectPath;
         OpenProjectScreen();
     }
 
@@ -86,7 +116,7 @@ public partial class ProjectSelectionScreen : Node
     {
         GD.Print("Selected folder: " + folderPath);
         _setProjectPathButtonLabel.Text = folderPath;
-        _selectedProjectPath = folderPath;
+        _selectedProjectFolderPath = folderPath;
         CheckForProjectCreationSettingsCompleted();
     }
 
@@ -104,7 +134,7 @@ public partial class ProjectSelectionScreen : Node
 
     private void CheckForProjectCreationSettingsCompleted()
     {
-        if (string.IsNullOrEmpty(_selectedProjectPath) || string.IsNullOrEmpty(_newProjectName))
+        if (string.IsNullOrEmpty(_selectedProjectFolderPath) || string.IsNullOrEmpty(_newProjectName))
         {
             _createProjectFinalButton.SetModulate(_invisibleColor);
             return; 
@@ -127,21 +157,21 @@ public partial class ProjectSelectionScreen : Node
         _baseMainScreen.SetVisible(false);
         _loadingProjectSubScreen.SetVisible(true);
         string fileName = _newProjectName + ".fksp";
-        string fullPath = Path.Combine(_selectedProjectPath, fileName);
-        GD.Print("Creating new project " + _newProjectName + " in folder: " + _selectedProjectPath);
-        GD.Print("Full path: " + fullPath);
+        _currentFullProjectPath = Path.Combine(_selectedProjectFolderPath, fileName);
+        GD.Print("Creating new project " + _newProjectName + " in folder: " + _selectedProjectFolderPath);
+        GD.Print("Full path: " + _currentFullProjectPath);
 
         try
         {
             
-            if (!Directory.Exists(_selectedProjectPath))
+            if (!Directory.Exists(_selectedProjectFolderPath))
             {
-                GD.PrintErr("Folder does not exist: " + _selectedProjectPath);
+                GD.PrintErr("Folder does not exist: " + _selectedProjectFolderPath);
                 return;
             }
 
             
-            using (FileStream fs = File.Create(fullPath))
+            using (FileStream fs = File.Create(_currentFullProjectPath))
             {
                 using (StreamWriter writer = new StreamWriter(fs))
                 {
@@ -151,7 +181,7 @@ public partial class ProjectSelectionScreen : Node
                 }
             }
 
-            GD.Print("Project file created successfully at: " + fullPath);
+            GD.Print("Project file created successfully at: " + _currentFullProjectPath);
             OpenProjectScreen();
             
         }
@@ -172,7 +202,9 @@ public partial class ProjectSelectionScreen : Node
     private  async void OpenProjectScreen()
     {
         await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
-        GetTree().ChangeSceneToPacked(_projectScreen);
+        if (_projectScreen == null || _appState == null) return;
+        _appState.SetCurrentProjectPath(_currentFullProjectPath);
+        _appState.ChangeScene(_projectScreen);
     }
     
     

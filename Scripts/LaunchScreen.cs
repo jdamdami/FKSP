@@ -20,12 +20,27 @@ public partial class LaunchScreen : Control
     private Godot.Collections.Array<LaunchPicData> _backgroundImagesPool = new();
     private bool _useTextureA = true;
     private bool _firstImage = true;
+    private AppState _appState;
 
     public override void _Ready()
     {
+        GD.Print("App Launch");
+        
+        SetAppState(); 
         CreateLaunchWindow();
         _ = SetNewBackgroundImageSafe();
         _ = ShowProjectScreenSafe();
+    }
+    
+    private void SetAppState()
+    {
+        _appState = (AppState)GetNode("/root/AppState");
+
+        if (_appState == null)
+        {
+            GD.PrintErr("AppState not found");
+        }
+        
     }
 
     private void CreateLaunchWindow()
@@ -44,9 +59,9 @@ public partial class LaunchScreen : Control
     }
 
     private async Task SetNewBackgroundImageSafe()
-    {
+    { 
         try
-        {
+        { 
             await SetNewBackgroundImage();
         }
         catch (Exception ex)
@@ -129,8 +144,9 @@ public partial class LaunchScreen : Control
 
     private async Task ShowProjectScreen()
     {
-        await ToSignal(GetTree().CreateTimer(10.0), SceneTreeTimer.SignalName.Timeout);
-        if (_projectSelectionScreen == null) return;
-        GetTree().ChangeSceneToPacked(_projectSelectionScreen);
+        await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
+        if (_projectSelectionScreen == null || _appState == null) return;
+        _appState.ChangeScene(_projectSelectionScreen);
+        
     }
 }
